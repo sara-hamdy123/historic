@@ -21,7 +21,7 @@ const Products = () => {
   const [count,setcount]=useState(8)
   const [countimg,setcountimg]=useState(6)
   const [currentimage,setcurrentimage]=useState("")
-//   const [isopen,setisopen]=useState(false)
+  const [isopen,setisopen]=useState(false)
   const [selectedimg,setselectedimg]=useState(null)
   const [currentindex,setcurrentindex]=useState(0)
   const [categories,setcategories]=useState([])
@@ -105,13 +105,13 @@ const Products = () => {
             height={175}
             className='object-cover '
             />
-            <div className='absolute top-0 left-0 bg-black/30 hover:bg-black/50 justify-center flex-col h-[330px] w-[100%] text-white items-center  py-[5rem] px-[0.7rem] rounded-2xl ' >
+            <div className='absolute top-0 left-0 bg-black/30 hover:bg-black/50 justify-center flex-col h-full overflow-hidden w-[100%] text-white items-center  py-[5rem] px-[0.7rem] rounded-2xl ' >
             <h2 className='text-lg font-bold text-white '>{item.title}</h2>
             <h6 className='text-white mt-4'>{item.category}</h6>
             <div className='flex justify-between items-center'> 
             <Link href={{pathname:`/product/${item.id} `,query:{data:JSON.stringify(item)} }} as={`/product/${item.id}`} className='text-white'>
-            <div className='flex relative items-center '>
-            <button className='bg-black/20 mt-2  text-white w-[125.5px] h-[50px] hover:bg-black/60 '>View</button>
+            <div className='flex relative items-center justify-center   '>
+            <button className='bg-black/20 mt-2 text-white w-[125.5px] h-[50px] hover:bg-black/60  '>View</button>
             <ArrowOutwardIcon className='absolute left-24'/>
             </div>
             </Link>
@@ -151,8 +151,8 @@ Explore more
   </select>
   </div>
  </div>
- <div className='mx-auto container flex justify-center items-center gap-40'>
-<Swiper spaceBetween={40} 
+ <div className='mx-auto container flex justify-center items-center  flex-wrap '>
+<Swiper spaceBetween={70} 
 slidesPerView={4}
 grid={{rows:2,fill:"row"}}
 modules={[Navigation,Pagination]}
@@ -173,7 +173,7 @@ galleryimages.slice(0,countimg).map((src,index)=>(
         alt='gallery image'
         width={300}
         height={300}
-        className={`cursor-pointer rounded-lg  object-cover ${index%2==0 ?"w-[400px] ":"w-[150px]"}` }
+        className={`cursor-pointer rounded-2xl  mt-6  object-fill  shadow-lg overflow-hidden   w-full ${index%2==0?"h-72":"h-48"}` }
         onClick={()=>{
         setcurrentimage(src)
         setisopen(true)

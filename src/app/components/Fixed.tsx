@@ -91,7 +91,7 @@ const Fixed = () => {
               <h2 className='text-lg font-bold text-white '>{item.title}</h2>
               <h6 className='text-white mt-4'>{item.category}</h6>
               <div className='flex justify-between items-center'> 
-              <Link href={{pathname:`/product/${item.id} `,query:{data:JSON.stringify(item)} }} as={`/product/${item.id}`} className='text-white'>
+              <Link href={{pathname:`/fixed/${item.id} `,query:{data:JSON.stringify(item)} }} as={`/fixed/${item.id}`} className='text-white'>
               <div className='flex relative items-center '>
               <button className='bg-black/20 mt-2  text-white w-[125.5px] h-[50px] hover:bg-black/60 '>View</button>
               <ArrowOutwardIcon className='absolute left-24'/>

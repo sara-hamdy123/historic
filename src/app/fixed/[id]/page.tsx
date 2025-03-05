@@ -1,8 +1,8 @@
 import Image from "next/image"
 import ImgRelated from "@/app/components/ImgRelated";
 import ImgCollection from "@/app/components/ImgCollection";
- export default  async function ProductInfo  ({ params }:{params:{id:string}})  {
- const  {id} = await params;
+ export default  async function FixedInfo  ({ params }:{params:{id:string}})  {
+ const { id }= await params;
  const req=await fetch(`https://fakestoreapi.com/products/${id}`);
       const product=await req.json();
 return (
@@ -28,7 +28,7 @@ return (
       <h1 className="font-medium text-xl">Art and Artifacts of {product.title} Egypt</h1>
       <h6 className="mt-2 text-gray-500 text-sm">Explore the artistic expressions of ancient Egyptians.</h6>
       </div>
-      <div className="flex mx-auto container lg:flex-row md:flex-col">
+      <div className="flex flex-wrap mx-auto container ">
       <ImgCollection  />
       </div>
       <div className="flex lg:flex-row md:flex-col container mx-auto mt-32 justify-between">
