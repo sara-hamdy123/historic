@@ -1,19 +1,14 @@
 "use client";
 import { useEffect, useState } from 'react';
-import axios from "axios"
 import Image from 'next/image';
 import Link from 'next/link';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import "swiper/css"
 import "swiper/css/grid"
-import { Navigation, Pagination, Grid } from 'swiper/modules';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import SearchIcon from '@mui/icons-material/Search';
 import TuneIcon from '@mui/icons-material/Tune';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import WorkIcon from '@mui/icons-material/Work';
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import CategoryFilter from '../try/CategoryFilter';
 import ProductSlider from '../try/ProductSlider';
 const Products = () => {
@@ -21,7 +16,6 @@ const Products = () => {
   const [galleryimages,setgalleryimages]=useState([]);
   const [search,setsearch]=useState("");
   const [count,setcount]=useState(8)
-//   const [categories,setcategories]=useState([])
   const [selectedcategory,setselectedcategory]=useState("")
   const [selectedCategory,setselectedCategory]= useState<string>("");
   const [images,setimages]=useState([])
@@ -35,22 +29,6 @@ const Products = () => {
       }
       fetchdata();
   },[])
-//   //get products result of chosen category
-//   const fetchProducts=(category="")=>{
-//   let url="https://fakestoreapi.com/products";
-//   if(category) url+=`/category/${category}`;
-//   axios.get(url)
-//   .then((response)=>{
-//   const imgurl=response.data.map(item=>item.image)
-//   setimages(imgurl)
-//   })
-//   }
-//   //change category
-//   const handlecatchane=(event)=>{
-//   const category=event.target.value;
-//   setselectedcategory(category)
-//   fetchProducts(category)
-//   }
   const filtedata=products.filter((item)=>item.title.toLowerCase().includes(search.toLowerCase()))
   .filter((item)=>selectedcategory? item.category === selectedcategory:true)
   return (
