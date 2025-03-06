@@ -14,18 +14,16 @@ import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import WorkIcon from '@mui/icons-material/Work';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import CategoryFilter from '../try/CategoryFilter';
+import ProductSlider from '../try/ProductSlider';
 const Products = () => {
   const [products,setproducts]=useState([]);
   const [galleryimages,setgalleryimages]=useState([]);
   const [search,setsearch]=useState("");
   const [count,setcount]=useState(8)
-  const [countimg,setcountimg]=useState(6)
-  const [currentimage,setcurrentimage]=useState("")
-  const [isopen,setisopen]=useState(false)
-  const [selectedimg,setselectedimg]=useState(null)
-  const [currentindex,setcurrentindex]=useState(0)
-  const [categories,setcategories]=useState([])
+//   const [categories,setcategories]=useState([])
   const [selectedcategory,setselectedcategory]=useState("")
+  const [selectedCategory,setselectedCategory]= useState<string>("");
   const [images,setimages]=useState([])
   useEffect(()=>{
       async function fetchdata(){
@@ -33,38 +31,26 @@ const Products = () => {
       const data=await req.json();
       setproducts(data);
       console.log(data);
-      setgalleryimages(data.map((item)=>item.image))
+      // setgalleryimages(data.map((item)=>item.image))
       }
       fetchdata();
   },[])
-  //get products result of chosen category
-  const fetchProducts=(category="")=>{
-  let url="https://fakestoreapi.com/products";
-  if(category) url+=`/category/${category}`;
-  axios.get(url)
-  .then((response)=>{
-  const imgurl=response.data.map(item=>item.image)
-  setimages(imgurl)
-  })
-  }
-  //change category
-  const handlecatchane=(event)=>{
-  const category=event.target.value;
-  setselectedcategory(category)
-  fetchProducts(category)
-  }
-  //next image in slider
-  const nextImage =()=>{
-  if(currentindex<products.length -1){
-  setcurrentindex(currentindex+1)
-  }
-  }
-  // prev image in slider
-  const prevImage =()=>{
-    if(currentindex>0){
-    setcurrentindex(currentindex-1)
-    }
-    }
+//   //get products result of chosen category
+//   const fetchProducts=(category="")=>{
+//   let url="https://fakestoreapi.com/products";
+//   if(category) url+=`/category/${category}`;
+//   axios.get(url)
+//   .then((response)=>{
+//   const imgurl=response.data.map(item=>item.image)
+//   setimages(imgurl)
+//   })
+//   }
+//   //change category
+//   const handlecatchane=(event)=>{
+//   const category=event.target.value;
+//   setselectedcategory(category)
+//   fetchProducts(category)
+//   }
   const filtedata=products.filter((item)=>item.title.toLowerCase().includes(search.toLowerCase()))
   .filter((item)=>selectedcategory? item.category === selectedcategory:true)
   return (
@@ -103,7 +89,7 @@ const Products = () => {
             alt={item.title}
             width={175}
             height={175}
-            className='object-cover '
+            className='object-cover'
             />
             <div className='absolute top-0 left-0 bg-black/30 hover:bg-black/50 justify-center flex-col h-full overflow-hidden w-[100%] text-white items-center  py-[5rem] px-[0.7rem] rounded-2xl ' >
             <h2 className='text-lg font-bold text-white '>{item.title}</h2>
@@ -111,7 +97,7 @@ const Products = () => {
             <div className='flex justify-between items-center'> 
             <Link href={{pathname:`/product/${item.id} `,query:{data:JSON.stringify(item)} }} as={`/product/${item.id}`} className='text-white'>
             <div className='flex relative items-center justify-center   '>
-            <button className='bg-black/20 mt-2 text-white w-[125.5px] h-[50px] hover:bg-black/60  '>View</button>
+            <button className='bg-black/20  text-white w-[125.5px] h-[50px] hover:bg-black/60  '>View</button>
             <ArrowOutwardIcon className='absolute left-24'/>
             </div>
             </Link>
@@ -141,101 +127,11 @@ Explore more
         <span className="text-2xl font-light text-gray-400"> Welcome to traps For Our Gallery</span>
   </div>
   <div>
-  <select  className=' cursor-pointer border-none py-3 px-5' value={selectedcategory}  onChange={handlecatchane}>
-  <option value="">all categories</option>
-  {
-  filtedata.map((item)=>(
-  <option key={item.id} value={item.category}>{item.category}</option>
-  ))
-  }
-  </select>
+      <CategoryFilter onSelectCategory={setselectedCategory} />
   </div>
  </div>
- <div className='mx-auto container flex justify-center items-center  flex-wrap '>
-<Swiper spaceBetween={70} 
-slidesPerView={4}
-grid={{rows:2,fill:"row"}}
-modules={[Navigation,Pagination]}
-navigation
-pagination={{clickable:true}}
-breakpoints={{
-640:{slidesPerView:3},
-425:{slidesPerView:1},
-740:{slidesPerView:4}
-}}
-className='mt-6 flex justify-between '
->
-{
-galleryimages.slice(0,countimg).map((src,index)=>(
-  <SwiperSlide key={index}>
-        <Image
-        src={src}
-        alt='gallery image'
-        width={300}
-        height={300}
-        className={`cursor-pointer rounded-2xl  mt-6  object-fill  shadow-lg overflow-hidden   w-full ${index%2==0?"h-72":"h-48"}` }
-        onClick={()=>{
-        setcurrentimage(src)
-        setisopen(true)
-        setselectedimg(src)
-        setcurrentindex(index)
-        }}
-        />
-  </SwiperSlide>
-))
-}
-</Swiper>
+ <ProductSlider category={selectedCategory} />
 </div>
-</div>
-{
-countimg <=products.length &&(
-<div className='relative flex  items-center justify-center text-center  lg:mt-10 lg:mx-8 '>
-<button className={`absolute  right-[38rem]  p-3  rounded-full ${countimg === 6 ? "text-gray-400 cursor-not-allowed":"bg-white text-black hover:bg-gray-300"}`}
-      disabled={countimg===6}
-      onClick={()=>setcountimg((prev)=>prev-6)}
-      >
-<NavigateBeforeIcon/>
-</button>
-      <button className={`  rounded-full ${countimg === products.length -1 ? "text-gray-400 cursor-not-allowed":"bg-white text-black hover:bg-gray-300"}`}
-      disabled={countimg=== products.length -1}
-      onClick={()=>setcountimg((prev)=>prev+6)}
-      >
-      <NavigateNextIcon/>
-      </button>
-</div>
-)
-}
-{/* image window */}
-{
-selectedimg && (
-<div className='fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50'>
-   <div className="relative">
-      <button className='absolute top-[0.5rem] right-[-30rem] bg-red-500 py-4 px-6 rounded-full' onClick={()=>setselectedimg(null)}>
-        x
-      </button>
-      <Image
-      src={products[currentindex].image}
-      alt="selected img"
-      width={500}
-      height={400}
-      className='rounded-lg object-cover'
-      />
-      <button className={`absolute left-[-20rem] top-[13rem] p-3 rounded-full ${currentindex === 0 ? "text-gray-400 cursor-not-allowed":"bg-white text-black hover:bg-gray-300"}`}
-      onClick={prevImage}
-      disabled={currentindex===0}
-      >
-<NavigateBeforeIcon/>
-</button>
-      <button className={`absolute right-[-20rem] p-3 top-[13rem] rounded-full ${currentindex === products.length -1 ? "text-gray-400 cursor-not-allowed":"bg-white text-black hover:bg-gray-300"}`}
-      onClick={nextImage}
-      disabled={currentindex=== products.length -1}
-      >
-      <NavigateNextIcon/>
-      </button>
-   </div>
-</div>
-)
-}
 </div>
   )
 }

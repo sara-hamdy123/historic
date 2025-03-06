@@ -28,7 +28,7 @@ return (
       <h1 className="font-medium text-xl">Art and Artifacts of {product.title} Egypt</h1>
       <h6 className="mt-2 text-gray-500 text-sm">Explore the artistic expressions of ancient Egyptians.</h6>
       </div>
-      <div className="flex flex-wrap mx-auto container ">
+      <div className="flex  mx-auto container ">
       <ImgCollection  />
       </div>
       <div className="flex lg:flex-row md:flex-col container mx-auto mt-32 justify-between">

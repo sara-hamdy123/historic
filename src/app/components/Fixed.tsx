@@ -25,7 +25,7 @@ const Fixed = () => {
     }
     fetchdata();
 },[])
- //get products result of chosen category
+//  //get products result of chosen category
  const fetchProducts=(category="")=>{
     let url="https://fakestoreapi.com/products";
     if(category) url+=`/category/${category}`;
@@ -50,7 +50,7 @@ const Fixed = () => {
      {/* search */}
      <h2 className='text-black/90 flex text-center mx-auto justify-center items-center font-bold mt-7 mb-4 text-2xl'>Discover Our Story</h2>
     <div className=" relative w-full max:w-md mx-auto">
-    <SearchIcon className='absolute inset-y-11  lg:left-64 lg:top-5 md:left-8 md:top-5 flex  justify-center items-center text-gray-500 hover:text-blue-500 '/>
+    <SearchIcon className='small absolute inset-y-11  lg:left-64 lg:top-5 md:left-8 md:top-5 flex  justify-center items-center text-gray-500 hover:text-blue-500 ' />
     <input type="text"
      placeholder='          Search for Historic area'
      className='border px-3 w-[767px]  h-[64px] flex  mx-auto justify-center mb-4 rounded-full border-gray-300 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500'
@@ -73,28 +73,28 @@ const Fixed = () => {
   <option key={item.id} value={item.category}>{item.category}</option>
   ))
   }
-  </select>    </div>
+  </select>  </div>
    </div>
      {/* filter */}
    <div className="grid lg:grid-cols-4 md:grid-cols-1 sm:grid-cols-1 md:mx-auto md:gap-44 lg:gap-y-[65px] lg:gap-x-[40px] container mx-auto p-6 ">
         {
         filtedata.slice(0,count).map((item)=>(
-        <div key={item.id} className=' p-4 shadow rounded-lg relative cursor-pointer object-fill'>
+        <div key={item.id} className=' p-4 shadow rounded-lg relative cursor-pointer object-fill h-full flex flex-col'>
               <Image 
               src={item.image}
               alt={item.title}
               width={175}
               height={175}
-              className='object-cover '
+              className='object-fill '
               />
-              <div className='absolute top-0 left-0 bg-black/30 hover:bg-black/50 justify-center flex-col h-[330px] w-[100%] text-white items-center  py-[5rem] px-[0.7rem] rounded-2xl ' >
-              <h2 className='text-lg font-bold text-white '>{item.title}</h2>
-              <h6 className='text-white mt-4'>{item.category}</h6>
-              <div className='flex justify-between items-center'> 
+              <div className='absolute top-0 left-0 bg-black/30 hover:bg-black/50  justify-center flex-col h-[330px] w-[100%] text-white items-center  py-[5rem] px-[0.7rem] rounded-2xl ' >
+              <h2 className='text-lg font-bold text-white'>{item.title}</h2>
+              <h6 className='text-white mt-2'>{item.category}</h6>
+              <div className='flex justify-between items-center'>
               <Link href={{pathname:`/fixed/${item.id} `,query:{data:JSON.stringify(item)} }} as={`/fixed/${item.id}`} className='text-white'>
-              <div className='flex relative items-center '>
-              <button className='bg-black/20 mt-2  text-white w-[125.5px] h-[50px] hover:bg-black/60 '>View</button>
-              <ArrowOutwardIcon className='absolute left-24'/>
+              <div className='flex relative items-center'>
+              <button className='bg-black/20 mt-1  text-white w-[125.5px] h-[50px] hover:bg-black/60 '>View</button>
+              <ArrowOutwardIcon className='absolute left-24 '/>
               </div>
               </Link>
               <WorkIcon className='text-white hover:text-black/60'/>

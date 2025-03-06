@@ -3,16 +3,16 @@ export default  async function ImgCollection() {
 const req=await fetch(`https://fakestoreapi.com/products`);
 const product=await req.json();
   return (
-  <div className="">
+  <div className="grid lg:grid-cols-3 md:grid-cols-1 gap-40 mx-auto container">
       {
       product.slice(0,3).map((p)=>(
-      <div key={product.id} className="" >
+      <div key={p.id} className="" >
             <Image 
             src={p.image}
             alt={p.title} 
-           width={600} 
-           height={600} 
-           className="cursor-pointer object-cover w-[300px] h-[320px] " 
+           width={300} 
+           height={300} 
+           className="cursor-pointer object-fill w-full h-[400px] " 
            />            
       </div>
       ))
